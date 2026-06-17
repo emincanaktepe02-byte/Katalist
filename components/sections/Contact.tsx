@@ -71,7 +71,7 @@ export default function Contact() {
               ÇALIŞALIM
             </span>
           </h2>
-          <p className="font-rajdhani text-slate-400 text-xl max-w-2xl mx-auto">
+          <p className="font-jakarta text-slate-400 text-xl max-w-2xl mx-auto">
             Projenizi hayata geçirmek için ilk adımı atın. Ücretsiz keşif görüşmesi için bize ulaşın.
           </p>
         </motion.div>
@@ -97,7 +97,7 @@ export default function Contact() {
                     <div className="font-mono-tech text-xs text-slate-500">En hızlı yanıt kanalı</div>
                   </div>
                 </div>
-                <p className="font-rajdhani text-slate-400 text-base mb-6 leading-relaxed">
+                <p className="font-jakarta text-slate-400 text-base mb-6 leading-relaxed">
                   Projeniz hakkında konuşmak için bizi WhatsApp&apos;tan arayın. Mesajınıza en kısa sürede dönüş yapıyoruz.
                 </p>
                 <a
@@ -136,7 +136,7 @@ export default function Contact() {
                     <div>
                       <div className="font-mono-tech text-xs text-slate-500">{info.label}</div>
                       <div className="font-orbitron text-sm font-bold text-white group-hover:text-cyan-400 transition-colors">{info.value}</div>
-                      <div className="font-rajdhani text-xs text-slate-500">{info.desc}</div>
+                      <div className="font-jakarta text-xs text-slate-500">{info.desc}</div>
                     </div>
                     <ArrowRight className={`w-4 h-4 ${colors.icon} ml-auto opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all`} />
                   </a>
@@ -159,7 +159,7 @@ export default function Contact() {
                 {benefits.map((benefit) => (
                   <div key={benefit} className="flex items-center gap-3">
                     <CheckCircle className="w-4 h-4 text-cyan-400 flex-shrink-0" />
-                    <span className="font-rajdhani text-slate-300 text-base">{benefit}</span>
+                    <span className="font-jakarta text-slate-300 text-base">{benefit}</span>
                   </div>
                 ))}
               </div>
@@ -181,7 +181,7 @@ export default function Contact() {
                     </div>
                     <div>
                       <div className="font-orbitron text-sm font-bold text-white mb-1">{step.title}</div>
-                      <div className="font-rajdhani text-slate-400 text-sm">{step.desc}</div>
+                      <div className="font-jakarta text-slate-400 text-sm">{step.desc}</div>
                     </div>
                     {index < 3 && (
                       <div className="absolute left-[62px] mt-10 w-px h-6 bg-purple-500/20" />

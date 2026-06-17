@@ -102,7 +102,7 @@ export default function Services() {
             </span>
             ?
           </h2>
-          <p className="font-rajdhani text-slate-400 text-xl max-w-2xl mx-auto">
+          <p className="font-jakarta text-slate-400 text-xl max-w-2xl mx-auto">
             Dijital dönüşümünüzün her aşamasında yanınızdayız. Tasarımdan geliştirmeye, otomasyondan desteğe.
           </p>
         </motion.div>
@@ -128,7 +128,7 @@ export default function Services() {
                 </div>
 
                 <h3 className="font-orbitron text-base font-bold text-white mb-3">{service.title}</h3>
-                <p className="font-rajdhani text-slate-400 text-base leading-relaxed mb-5">{service.description}</p>
+                <p className="font-jakarta text-slate-400 text-base leading-relaxed mb-5">{service.description}</p>
 
                 <div className="flex flex-wrap gap-2">
                   {service.features.map((f) => (
@@ -159,7 +159,7 @@ export default function Services() {
             <h3 className="font-orbitron text-2xl md:text-3xl font-black text-white mb-4">
               Projenizi <span className="text-cyan-400">Hayata Geçirelim</span>
             </h3>
-            <p className="font-rajdhani text-slate-400 text-lg mb-8 max-w-xl mx-auto">
+            <p className="font-jakarta text-slate-400 text-lg mb-8 max-w-xl mx-auto">
               Ücretsiz keşif görüşmesi için WhatsApp üzerinden iletişime geçin. 24 saat içinde dönüş garantisi.
             </p>
             <a

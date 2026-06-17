@@ -133,12 +133,12 @@ export default function Reviews() {
           <div className="inline-flex flex-col sm:flex-row items-center gap-6 p-6 rounded-2xl border border-yellow-500/20 bg-yellow-500/5 mt-4">
             <div className="text-center">
               <div className="font-orbitron text-6xl font-black text-yellow-400">{AVG_RATING}</div>
-              <div className="font-rajdhani text-slate-400 text-sm mt-1">/ 5.0</div>
+              <div className="font-jakarta text-slate-400 text-sm mt-1">/ 5.0</div>
             </div>
             <div className="h-12 w-px bg-yellow-500/20 hidden sm:block" />
             <div className="text-left">
               <StarRating rating={5} size="lg" />
-              <div className="font-rajdhani text-slate-300 text-lg mt-2">
+              <div className="font-jakarta text-slate-300 text-lg mt-2">
                 <span className="text-yellow-400 font-bold">{TOTAL_REVIEWS}</span> müşteri değerlendirmesi
               </div>
               <div className="font-mono-tech text-xs text-slate-500 mt-1">%98 müşteri tavsiye eder</div>
@@ -177,11 +177,11 @@ export default function Reviews() {
                     </div>
                     <div>
                       <div className="font-orbitron text-sm text-white">{review.name}</div>
-                      <div className="font-rajdhani text-xs text-slate-500">{review.role}</div>
+                      <div className="font-jakarta text-xs text-slate-500">{review.role}</div>
                     </div>
                   </div>
                   <StarRating rating={review.rating} />
-                  <p className="font-rajdhani text-slate-300 text-sm mt-3 leading-relaxed">{review.text}</p>
+                  <p className="font-jakarta text-slate-300 text-sm mt-3 leading-relaxed">{review.text}</p>
                   <div className="font-mono-tech text-xs text-slate-600 mt-3">{review.time}</div>
                 </div>
               );

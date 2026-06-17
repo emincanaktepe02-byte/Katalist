@@ -98,7 +98,7 @@ export default function About() {
               ÖNCÜLÜYÜZ
             </span>
           </h2>
-          <p className="font-rajdhani text-slate-400 text-xl max-w-3xl mx-auto leading-relaxed">
+          <p className="font-jakarta text-slate-400 text-xl max-w-3xl mx-auto leading-relaxed">
             Katalist olarak yazılım mühendisi ekibimizle kurumsal dijital destek veriyoruz. Talep doğrultusunda
             otomasyon ve tasarım çözümleri sunuyor, müşteri memnuniyetini merkeze alarak satış sonrası
             destek sağlıyoruz.
@@ -121,7 +121,7 @@ export default function About() {
                 Teknoloji ile İşinizi{' '}
                 <span className="text-cyan-400">Güçlendiriyoruz</span>
               </h3>
-              <p className="font-rajdhani text-slate-400 text-lg leading-relaxed">
+              <p className="font-jakarta text-slate-400 text-lg leading-relaxed">
                 Modern teknolojiler ve yapay zeka destekli araçlarla, işletmenizin dijital varlığını
                 güçlendiriyoruz. Her proje, müşterimizin başarısına adanmış bir mühendislik çalışmasıdır.
               </p>
@@ -138,7 +138,7 @@ export default function About() {
                   className="p-4 rounded-xl bg-slate-900/50 border border-cyan-500/10 text-center"
                 >
                   <div className="font-orbitron text-xl font-black text-cyan-400">{item.value}</div>
-                  <div className="font-rajdhani text-xs text-slate-500 mt-1">{item.label}</div>
+                  <div className="font-jakarta text-xs text-slate-500 mt-1">{item.label}</div>
                   <div className="font-mono-tech text-[10px] text-slate-600 mt-0.5">{item.sub}</div>
                 </div>
               ))}
@@ -164,7 +164,7 @@ export default function About() {
                   <Icon className={`w-5 h-5 ${colors.icon}`} />
                 </div>
                 <h3 className="font-orbitron text-base font-bold text-white mb-3">{value.title}</h3>
-                <p className="font-rajdhani text-slate-400 text-base leading-relaxed">{value.description}</p>
+                <p className="font-jakarta text-slate-400 text-base leading-relaxed">{value.description}</p>
               </motion.div>
             );
           })}

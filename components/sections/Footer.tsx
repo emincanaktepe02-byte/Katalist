@@ -25,7 +25,7 @@ export default function Footer() {
               BAŞLATALIM
             </span>
           </h2>
-          <p className="font-rajdhani text-slate-400 text-lg mb-8 max-w-xl mx-auto">
+          <p className="font-jakarta text-slate-400 text-lg mb-8 max-w-xl mx-auto">
             Dijital dönüşümünüzün ilk adımını bugün atın.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -76,7 +76,7 @@ export default function Footer() {
                 <span className="text-cyan-400">LIST</span>
               </span>
             </div>
-            <p className="font-rajdhani text-slate-500 text-base leading-relaxed max-w-xs">
+            <p className="font-jakarta text-slate-500 text-base leading-relaxed max-w-xs">
               Yazılım mühendisi ekibimizle dijital kurumsal destek, otomasyon ve tasarım hizmetleri sunuyoruz.
             </p>
           </div>
@@ -94,7 +94,7 @@ export default function Footer() {
                 { label: 'İletişim', href: '#contact' },
               ].map((link) => (
                 <li key={link.href}>
-                  <a href={link.href} className="font-rajdhani text-slate-500 hover:text-cyan-400 transition-colors text-base">
+                  <a href={link.href} className="font-jakarta text-slate-500 hover:text-cyan-400 transition-colors text-base">
                     {link.label}
                   </a>
                 </li>
@@ -107,19 +107,19 @@ export default function Footer() {
             <div className="font-mono-tech text-xs text-purple-400 tracking-widest mb-4">// İLETİŞİM</div>
             <ul className="space-y-3">
               <li>
-                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="font-rajdhani text-slate-500 hover:text-green-400 transition-colors text-base">
+                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="font-jakarta text-slate-500 hover:text-green-400 transition-colors text-base">
                   WhatsApp: +90 534 885 22 48
                 </a>
               </li>
               <li>
-                <a href="tel:+905348852248" className="font-rajdhani text-slate-500 hover:text-cyan-400 transition-colors text-base">
+                <a href="tel:+905348852248" className="font-jakarta text-slate-500 hover:text-cyan-400 transition-colors text-base">
                   Tel: 0534 885 22 48
                 </a>
               </li>
               <li>
                 <span className="font-mono-tech text-xs text-slate-600">Pazartesi - Cumartesi</span>
                 <br />
-                <span className="font-rajdhani text-slate-500 text-base">09:00 - 18:00</span>
+                <span className="font-jakarta text-slate-500 text-base">09:00 - 18:00</span>
               </li>
             </ul>
           </div>

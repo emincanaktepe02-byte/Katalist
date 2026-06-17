@@ -1,212 +1,264 @@
 'use client';
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, Globe, ChevronLeft, ChevronRight } from 'lucide-react';
+import React, { useState, useRef } from 'react';
+import { motion } from 'framer-motion';
+import { ExternalLink, ArrowRight } from 'lucide-react';
 
+/* ── Project data with real logo URLs ───────────────────────────── */
 const projects = [
   {
     title: 'Kumman Gevrek',
-    category: 'Gıda & Restoran',
-    description: 'Türk gıda markası için modern ve iştah açıcı e-ticaret web sitesi. Ürün kataloğu, sipariş sistemi ve kurumsal kimlik tasarımı.',
+    category: 'Gıda & Fırın',
     url: 'https://kumman-gevrek.vercel.app/',
-    tags: ['E-Ticaret', 'Next.js', 'UI/UX'],
-    accent: 'cyan',
-    preview: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800&auto=format&fit=crop',
+    logo: 'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://kumman-gevrek.vercel.app&size=256',
+    logoBg: '#fff8f0',
+    accent: '#f97316',
+    initial: 'KG',
   },
   {
     title: 'Bilge Beauty',
     category: 'Güzellik & Estetik',
-    description: 'Güzellik salonu için rezervasyon sistemi, hizmet tanıtımı ve lokasyon bilgileri içeren kurumsal web sitesi.',
     url: 'https://bilgebeuty.vercel.app/#location',
-    tags: ['Kurumsal', 'Rezervasyon', 'Lokasyon'],
-    accent: 'purple',
-    preview: 'https://images.unsplash.com/photo-1560066984-138daaa7cad8?w=800&auto=format&fit=crop',
+    logo: 'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://bilgebeuty.vercel.app&size=256',
+    logoBg: '#fdf2f8',
+    accent: '#ec4899',
+    initial: 'BB',
   },
   {
     title: 'Atlantik Gayrimenkul',
     category: 'Gayrimenkul',
-    description: 'Emlak firması için portföy yönetimi, ilan sistemi ve kurumsal kimlik içeren profesyonel gayrimenkul sitesi.',
     url: 'https://atlantik-gayrimenkul.vercel.app/',
-    tags: ['Gayrimenkul', 'Portföy', 'CRM'],
-    accent: 'green',
-    preview: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&auto=format&fit=crop',
+    logo: 'https://atlantik-gayrimenkul.vercel.app/_next/image?url=%2Fgorsel.png&w=256&q=75',
+    logoBg: '#eff6ff',
+    accent: '#3b82f6',
+    initial: 'AG',
   },
   {
     title: 'Berber Vagos',
     category: 'Berber & Kuaför',
-    description: 'Erkek kuaförü için online randevu sistemi, fiyat listesi ve galeri içeren modern ve çarpıcı web sitesi.',
     url: 'https://berbervagos.com/',
-    tags: ['Randevu Sistemi', 'Galeri', 'Mobil'],
-    accent: 'cyan',
-    preview: 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=800&auto=format&fit=crop',
+    logo: 'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://berbervagos.com&size=256',
+    logoBg: '#1a1a1a',
+    accent: '#eab308',
+    initial: 'BV',
   },
   {
     title: 'NZ Poliklinik',
     category: 'Sağlık & Klinik',
-    description: 'Özel sağlık kliniği için randevu sistemi, doktor profilleri ve hizmet bilgileri içeren sağlık portalı.',
     url: 'https://nzpoliklinik.com.tr/',
-    tags: ['Sağlık', 'Randevu', 'Doktor Profili'],
-    accent: 'purple',
-    preview: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=800&auto=format&fit=crop',
+    logo: 'https://nzpoliklinik.com.tr/wp-content/uploads/2025/07/nz-poliklinik-logo-purple.png',
+    logoBg: '#f5f3ff',
+    accent: '#8b5cf6',
+    initial: 'NZ',
   },
   {
     title: 'Yılmaz Otomotiv',
     category: 'Otomotiv',
-    description: 'Araç galerisi için stok yönetimi, araç filtreleme sistemi ve kurumsal tanıtım içeren kapsamlı otomotiv sitesi.',
     url: 'https://www.yilmazotomotiv.com/',
-    tags: ['Araç Galerisi', 'Stok Yönetimi', 'Filtre'],
-    accent: 'green',
-    preview: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&auto=format&fit=crop',
+    logo: 'https://www.yilmazotomotiv.com/images/logo.png',
+    logoBg: '#f8fafc',
+    accent: '#ef4444',
+    initial: 'YO',
   },
   {
     title: 'Enn Motors',
     category: 'Otomotiv',
-    description: 'Modern araç galerisi ve showroom için dijital vitrin, servis hizmetleri ve müşteri yönetim sistemi.',
     url: 'https://ennmotors.com/',
-    tags: ['Showroom', 'Servis', 'CRM'],
-    accent: 'cyan',
-    preview: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&auto=format&fit=crop',
+    logo: 'https://ennmotors.com/wp-content/uploads/2016/08/EnnMotorLogo.png',
+    logoBg: '#f8fafc',
+    accent: '#f59e0b',
+    initial: 'EM',
   },
   {
     title: 'İzmir Dental Klinik',
     category: 'Diş Kliniği',
-    description: 'Diş kliniği için online randevu, tedavi bilgileri, doktor kadrosu ve hasta portali içeren kapsamlı sağlık sitesi.',
     url: 'https://izmirdentalklinik.com/',
-    tags: ['Diş Kliniği', 'Randevu', 'Tedavi'],
-    accent: 'purple',
-    preview: 'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=800&auto=format&fit=crop',
+    logo: 'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://izmirdentalklinik.com&size=256',
+    logoBg: '#ecfdf5',
+    accent: '#10b981',
+    initial: 'İD',
   },
   {
     title: 'Artera Mimarlık',
     category: 'Mimarlık & Tasarım',
-    description: 'Mimarlık firması için proje portföyü, 3D görseller ve kurumsal kimlik içeren etkileyici mimarlık sitesi.',
     url: 'https://arteramimarlik.com/',
-    tags: ['Mimarlık', 'Portföy', '3D Görsel'],
-    accent: 'green',
-    preview: 'https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800&auto=format&fit=crop',
+    logo: 'https://arteramimarlik.com/wp-content/uploads/2024/06/log.png',
+    logoBg: '#1c1c1c',
+    accent: '#a3a3a3',
+    initial: 'AM',
   },
   {
     title: 'Safir Kuyumculuk',
     category: 'Kuyumculuk & Mücevher',
-    description: 'Kuyumcu firması için lüks ürün kataloğu, koleksiyon tanıtımı ve kurumsal kimlik içeren premium web sitesi.',
     url: 'https://www.safirkuyumculuk.com.tr/',
-    tags: ['Lüks Marka', 'Katalog', 'Premium'],
-    accent: 'cyan',
-    preview: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&auto=format&fit=crop',
+    logo: 'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://safirkuyumculuk.com.tr&size=256',
+    logoBg: '#fefce8',
+    accent: '#f59e0b',
+    initial: 'SK',
   },
 ];
 
-const accentMap = {
-  cyan: { border: 'border-cyan-500/30', tag: 'bg-cyan-500/10 text-cyan-300 border-cyan-500/20', btn: 'text-cyan-400 hover:text-cyan-300 border-cyan-500/30 hover:border-cyan-400', dot: 'bg-cyan-400', glow: 'group-hover:shadow-cyan-500/20' },
-  purple: { border: 'border-purple-500/30', tag: 'bg-purple-500/10 text-purple-300 border-purple-500/20', btn: 'text-purple-400 hover:text-purple-300 border-purple-500/30 hover:border-purple-400', dot: 'bg-purple-400', glow: 'group-hover:shadow-purple-500/20' },
-  green: { border: 'border-emerald-500/30', tag: 'bg-emerald-500/10 text-emerald-300 border-emerald-500/20', btn: 'text-emerald-400 hover:text-emerald-300 border-emerald-500/30 hover:border-emerald-400', dot: 'bg-emerald-400', glow: 'group-hover:shadow-emerald-500/20' },
-};
-
-export default function Projects() {
-  const [selected, setSelected] = useState<number | null>(null);
+/* ── Logo card with fallback avatar ────────────────────────────── */
+function ProjectCard({ p }: { p: typeof projects[0] }) {
+  const [imgErr, setImgErr] = useState(false);
 
   return (
-    <section id="projects" className="relative py-32 overflow-hidden">
-      <div className="absolute inset-0 grid-bg opacity-30" />
-      <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-cyan-500/5 blur-3xl" />
+    <a
+      href={p.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group relative flex-shrink-0 w-52 md:w-60 rounded-2xl overflow-hidden border border-white/[0.07] bg-[#0a0f1a] hover:border-white/20 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl"
+      style={{ boxShadow: '0 0 0 0 transparent' }}
+      onMouseEnter={(e) => {
+        (e.currentTarget as HTMLAnchorElement).style.boxShadow = `0 20px 50px -10px ${p.accent}33`;
+      }}
+      onMouseLeave={(e) => {
+        (e.currentTarget as HTMLAnchorElement).style.boxShadow = '0 0 0 0 transparent';
+      }}
+    >
+      {/* Logo area */}
+      <div
+        className="flex items-center justify-center h-32 w-full relative overflow-hidden"
+        style={{ background: p.logoBg }}
+      >
+        {!imgErr ? (
+          <img
+            src={p.logo}
+            alt={p.title}
+            className="max-h-16 max-w-[80%] object-contain transition-transform duration-500 group-hover:scale-105"
+            onError={() => setImgErr(true)}
+          />
+        ) : (
+          /* Fallback: initials avatar */
+          <div
+            className="w-16 h-16 rounded-2xl flex items-center justify-center font-orbitron font-black text-xl text-white"
+            style={{ background: `linear-gradient(135deg, ${p.accent}cc, ${p.accent}55)` }}
+          >
+            {p.initial}
+          </div>
+        )}
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6">
+        {/* Hover overlay */}
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 flex items-center justify-center transition-all duration-300">
+          <div className="opacity-0 group-hover:opacity-100 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/90 text-black font-orbitron text-[10px] tracking-widest transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+            ZİYARET ET <ExternalLink className="w-3 h-3" />
+          </div>
+        </div>
+      </div>
+
+      {/* Info area */}
+      <div className="px-4 py-3.5 border-t border-white/[0.06]">
+        <div className="font-orbitron text-sm font-bold text-white leading-tight mb-1.5 group-hover:text-cyan-400 transition-colors">
+          {p.title}
+        </div>
+        <div
+          className="font-mono-tech text-[10px] tracking-widest px-2 py-0.5 rounded-full inline-block"
+          style={{ background: `${p.accent}18`, color: p.accent }}
+        >
+          {p.category}
+        </div>
+      </div>
+
+      {/* Bottom accent line */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"
+        style={{ background: `linear-gradient(to right, ${p.accent}, transparent)` }}
+      />
+    </a>
+  );
+}
+
+/* ── Marquee row ────────────────────────────────────────────────── */
+function MarqueeRow({ items, reverse = false, speed = 40 }: {
+  items: typeof projects;
+  reverse?: boolean;
+  speed?: number;
+}) {
+  const [paused, setPaused] = useState(false);
+  const doubled = [...items, ...items];
+
+  return (
+    <div
+      className="overflow-hidden w-full"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
+      <motion.div
+        className="flex gap-4 w-max"
+        animate={paused ? {} : { x: reverse ? ['0%', '50%'] : ['0%', '-50%'] }}
+        transition={{ duration: speed, repeat: Infinity, ease: 'linear' }}
+        style={{ willChange: 'transform' }}
+      >
+        {doubled.map((p, i) => (
+          <ProjectCard key={`${p.title}-${i}`} p={p} />
+        ))}
+      </motion.div>
+    </div>
+  );
+}
+
+/* ── Section ────────────────────────────────────────────────────── */
+export default function Projects() {
+  /* split into two rows — odd/even */
+  const row1 = projects.filter((_, i) => i % 2 === 0);   // 5 items
+  const row2 = projects.filter((_, i) => i % 2 !== 0);   // 5 items
+
+  return (
+    <section id="projects" className="relative py-28 overflow-hidden">
+      {/* BG */}
+      <div className="absolute inset-0 grid-bg opacity-25" />
+      <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-cyan-500/5 blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-80 h-80 rounded-full bg-violet-500/5 blur-3xl pointer-events-none" />
+
+      {/* Header */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 mb-16">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="text-center mb-20"
+          className="text-center"
         >
           <span className="font-mono-tech text-xs text-green-400 tracking-[0.3em] uppercase block mb-4">
             // PROJELERİMİZ
           </span>
-          <h2 className="font-orbitron text-4xl md:text-5xl font-black text-white mb-6">
+          <h2 className="font-orbitron text-4xl md:text-5xl font-black text-white mb-5">
             TAMAMLANAN{' '}
             <span className="bg-gradient-to-r from-green-400 to-cyan-400 bg-clip-text text-transparent">
               ÇALIŞMALAR
             </span>
           </h2>
-          <p className="font-rajdhani text-slate-400 text-xl max-w-2xl mx-auto">
+          <p className="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto font-light">
             Farklı sektörlerden müşterilerimiz için hayata geçirdiğimiz dijital projeler.
-          </p>
-        </motion.div>
-
-        {/* Projects grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project, index) => {
-            const colors = accentMap[project.accent as keyof typeof accentMap];
-            return (
-              <motion.div
-                key={project.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.07 }}
-                className={`group relative rounded-2xl overflow-hidden bg-slate-900/60 border ${colors.border} hover:shadow-xl ${colors.glow} transition-all duration-500 hover:-translate-y-1`}
-              >
-                {/* Preview image */}
-                <div className="relative h-48 overflow-hidden">
-                  <img
-                    src={project.preview}
-                    alt={project.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/50 to-transparent" />
-                  {/* Live badge */}
-                  <div className="absolute top-3 right-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-sm border border-white/10">
-                    <span className={`w-1.5 h-1.5 rounded-full ${colors.dot} animate-pulse`} />
-                    <span className="font-mono-tech text-[10px] text-white/70">CANLI</span>
-                  </div>
-                  {/* Category */}
-                  <div className="absolute bottom-3 left-3">
-                    <span className={`px-2.5 py-1 rounded-full text-xs font-mono-tech border ${colors.tag}`}>
-                      {project.category}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-6">
-                  <h3 className="font-orbitron text-base font-bold text-white mb-2">{project.title}</h3>
-                  <p className="font-rajdhani text-slate-400 text-sm leading-relaxed mb-4 line-clamp-2">{project.description}</p>
-
-                  <div className="flex flex-wrap gap-1.5 mb-5">
-                    {project.tags.map((tag) => (
-                      <span key={tag} className={`px-2 py-0.5 rounded-full text-xs font-mono-tech border ${colors.tag}`}>
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  <a
-                    href={project.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`inline-flex items-center gap-2 text-sm font-orbitron tracking-wider border-b pb-0.5 transition-all duration-300 ${colors.btn}`}
-                  >
-                    <Globe className="w-3.5 h-3.5" />
-                    SİTEYİ ZİYARET ET
-                    <ExternalLink className="w-3 h-3" />
-                  </a>
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
-
-        {/* View all CTA */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="text-center mt-12"
-        >
-          <p className="font-mono-tech text-slate-600 text-xs tracking-widest">
-            // 10 PROJE · FARKLI SEKTÖRLER · GERÇEK SONUÇLAR
+            Hover ederek siteyi ziyaret edin.
           </p>
         </motion.div>
       </div>
+
+      {/* ── Marquee strips ── */}
+      <div className="relative z-10 flex flex-col gap-5">
+        {/* Fade edge masks */}
+        <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#020408] to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#020408] to-transparent z-10 pointer-events-none" />
+
+        <MarqueeRow items={row1} reverse={false} speed={38} />
+        <MarqueeRow items={row2} reverse={true} speed={44} />
+      </div>
+
+      {/* Footer note */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        className="relative z-10 text-center mt-14"
+      >
+        <a
+          href="#contact"
+          className="inline-flex items-center gap-2 font-orbitron text-xs tracking-widest text-slate-500 hover:text-cyan-400 transition-colors duration-300 group"
+        >
+          SİZ DE BİR PROJE BAŞLATALIM
+          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+        </a>
+      </motion.div>
     </section>
   );
 }
