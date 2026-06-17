@@ -1,9 +1,8 @@
 'use client';
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ExternalLink, ArrowRight } from 'lucide-react';
 
-/* ── Project data with real logo URLs ───────────────────────────── */
 const projects = [
   {
     title: 'Kumman Gevrek',
@@ -64,7 +63,7 @@ const projects = [
     category: 'Otomotiv',
     url: 'https://ennmotors.com/',
     logo: 'https://ennmotors.com/wp-content/uploads/2016/08/EnnMotorLogo.png',
-    logoBg: '#f8fafc',
+    logoBg: '#fafafa',
     accent: '#f59e0b',
     initial: 'EM',
   },
@@ -82,13 +81,13 @@ const projects = [
     category: 'Mimarlık & Tasarım',
     url: 'https://arteramimarlik.com/',
     logo: 'https://arteramimarlik.com/wp-content/uploads/2024/06/log.png',
-    logoBg: '#1c1c1c',
+    logoBg: '#18181b',
     accent: '#a3a3a3',
     initial: 'AM',
   },
   {
     title: 'Safir Kuyumculuk',
-    category: 'Kuyumculuk & Mücevher',
+    category: 'Kuyumculuk',
     url: 'https://www.safirkuyumculuk.com.tr/',
     logo: 'https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://safirkuyumculuk.com.tr&size=256',
     logoBg: '#fefce8',
@@ -97,7 +96,6 @@ const projects = [
   },
 ];
 
-/* ── Logo card with fallback avatar ────────────────────────────── */
 function ProjectCard({ p }: { p: typeof projects[0] }) {
   const [imgErr, setImgErr] = useState(false);
 
@@ -106,14 +104,8 @@ function ProjectCard({ p }: { p: typeof projects[0] }) {
       href={p.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative flex-shrink-0 w-52 md:w-60 rounded-2xl overflow-hidden border border-white/[0.07] bg-[#0a0f1a] hover:border-white/20 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl"
-      style={{ boxShadow: '0 0 0 0 transparent' }}
-      onMouseEnter={(e) => {
-        (e.currentTarget as HTMLAnchorElement).style.boxShadow = `0 20px 50px -10px ${p.accent}33`;
-      }}
-      onMouseLeave={(e) => {
-        (e.currentTarget as HTMLAnchorElement).style.boxShadow = '0 0 0 0 transparent';
-      }}
+      className="group relative flex-shrink-0 w-52 md:w-60 rounded-2xl overflow-hidden border border-slate-200 bg-white hover:shadow-xl transition-all duration-400 hover:-translate-y-2"
+      style={{ ['--accent' as string]: p.accent }}
     >
       {/* Logo area */}
       <div
@@ -124,50 +116,48 @@ function ProjectCard({ p }: { p: typeof projects[0] }) {
           <img
             src={p.logo}
             alt={p.title}
-            className="max-h-16 max-w-[80%] object-contain transition-transform duration-500 group-hover:scale-105"
+            className="max-h-16 max-w-[75%] object-contain transition-transform duration-500 group-hover:scale-110"
             onError={() => setImgErr(true)}
           />
         ) : (
-          /* Fallback: initials avatar */
           <div
-            className="w-16 h-16 rounded-2xl flex items-center justify-center font-orbitron font-black text-xl text-white"
-            style={{ background: `linear-gradient(135deg, ${p.accent}cc, ${p.accent}55)` }}
+            className="w-14 h-14 rounded-2xl flex items-center justify-center font-orbitron font-black text-lg text-white"
+            style={{ background: `linear-gradient(135deg, ${p.accent}, ${p.accent}88)` }}
           >
             {p.initial}
           </div>
         )}
 
         {/* Hover overlay */}
-        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 flex items-center justify-center transition-all duration-300">
-          <div className="opacity-0 group-hover:opacity-100 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/90 text-black font-orbitron text-[10px] tracking-widest transition-all duration-300 translate-y-2 group-hover:translate-y-0">
-            ZİYARET ET <ExternalLink className="w-3 h-3" />
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 flex items-center justify-center transition-all duration-300">
+          <div className="opacity-0 group-hover:opacity-100 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white text-slate-900 text-xs font-semibold shadow-lg transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+            Ziyaret Et <ExternalLink className="w-3 h-3" />
           </div>
         </div>
       </div>
 
-      {/* Info area */}
-      <div className="px-4 py-3.5 border-t border-white/[0.06]">
-        <div className="font-orbitron text-sm font-bold text-white leading-tight mb-1.5 group-hover:text-cyan-400 transition-colors">
+      {/* Info */}
+      <div className="px-4 py-3.5 border-t border-slate-100">
+        <div className="font-semibold text-sm text-slate-900 mb-1 group-hover:text-indigo-600 transition-colors">
           {p.title}
         </div>
         <div
-          className="font-mono-tech text-[10px] tracking-widest px-2 py-0.5 rounded-full inline-block"
+          className="text-[10px] font-medium px-2 py-0.5 rounded-full inline-block"
           style={{ background: `${p.accent}18`, color: p.accent }}
         >
           {p.category}
         </div>
       </div>
 
-      {/* Bottom accent line */}
+      {/* Bottom accent */}
       <div
-        className="absolute bottom-0 left-0 right-0 h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"
-        style={{ background: `linear-gradient(to right, ${p.accent}, transparent)` }}
+        className="absolute bottom-0 left-0 right-0 h-0.5 scale-x-0 group-hover:scale-x-100 transition-transform duration-400 origin-left"
+        style={{ background: p.accent }}
       />
     </a>
   );
 }
 
-/* ── Marquee row ────────────────────────────────────────────────── */
 function MarqueeRow({ items, reverse = false, speed = 40 }: {
   items: typeof projects;
   reverse?: boolean;
@@ -196,69 +186,51 @@ function MarqueeRow({ items, reverse = false, speed = 40 }: {
   );
 }
 
-/* ── Section ────────────────────────────────────────────────────── */
+const row1 = projects.filter((_, i) => i % 2 === 0);
+const row2 = projects.filter((_, i) => i % 2 !== 0);
+
 export default function Projects() {
-  /* split into two rows — odd/even */
-  const row1 = projects.filter((_, i) => i % 2 === 0);   // 5 items
-  const row2 = projects.filter((_, i) => i % 2 !== 0);   // 5 items
-
   return (
-    <section id="projects" className="relative py-28 overflow-hidden">
-      {/* BG */}
-      <div className="absolute inset-0 grid-bg opacity-25" />
-      <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-cyan-500/5 blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-80 h-80 rounded-full bg-violet-500/5 blur-3xl pointer-events-none" />
+    <section id="projects" className="relative py-28 bg-slate-50 overflow-hidden">
+      <div className="absolute inset-0 dot-bg" />
 
-      {/* Header */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 mb-16">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
+          transition={{ duration: 0.6 }}
           className="text-center"
         >
-          <span className="font-mono-tech text-xs text-green-400 tracking-[0.3em] uppercase block mb-4">
-            // PROJELERİMİZ
-          </span>
-          <h2 className="font-orbitron text-4xl md:text-5xl font-black text-white mb-5">
-            TAMAMLANAN{' '}
-            <span className="bg-gradient-to-r from-green-400 to-cyan-400 bg-clip-text text-transparent">
-              ÇALIŞMALAR
-            </span>
+          <p className="font-mono-tech text-xs tracking-[0.25em] text-indigo-600 uppercase mb-3">
+            // Projelerimiz
+          </p>
+          <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-4">
+            Tamamlanan <span className="text-indigo-600">Çalışmalar</span>
           </h2>
-          <p className="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto font-light">
+          <p className="text-slate-500 text-lg max-w-xl mx-auto">
             Farklı sektörlerden müşterilerimiz için hayata geçirdiğimiz dijital projeler.
-            Hover ederek siteyi ziyaret edin.
           </p>
         </motion.div>
       </div>
 
-      {/* ── Marquee strips ── */}
+      {/* Marquee */}
       <div className="relative z-10 flex flex-col gap-5">
-        {/* Fade edge masks */}
-        <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#020408] to-transparent z-10 pointer-events-none" />
-        <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#020408] to-transparent z-10 pointer-events-none" />
-
-        <MarqueeRow items={row1} reverse={false} speed={38} />
-        <MarqueeRow items={row2} reverse={true} speed={44} />
+        <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-slate-50 to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-slate-50 to-transparent z-10 pointer-events-none" />
+        <MarqueeRow items={row1} reverse={false} speed={36} />
+        <MarqueeRow items={row2} reverse={true} speed={42} />
       </div>
 
-      {/* Footer note */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        className="relative z-10 text-center mt-14"
-      >
+      <div className="relative z-10 text-center mt-14">
         <a
           href="#contact"
-          className="inline-flex items-center gap-2 font-orbitron text-xs tracking-widest text-slate-500 hover:text-cyan-400 transition-colors duration-300 group"
+          className="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 hover:text-indigo-600 transition-colors group"
         >
-          SİZ DE BİR PROJE BAŞLATALIM
-          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+          Siz de bir proje başlatalım
+          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
         </a>
-      </motion.div>
+      </div>
     </section>
   );
 }

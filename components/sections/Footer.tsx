@@ -1,139 +1,163 @@
 'use client';
 import React from 'react';
-import { motion } from 'framer-motion';
-import { Zap, MessageCircle, ArrowRight } from 'lucide-react';
+import { MessageCircle, ArrowUpRight } from 'lucide-react';
+import { KatalistLogo } from './Navbar';
 
-const WHATSAPP_URL = 'https://wa.me/905348852248?text=Merhaba%2C%20fiyat%20teklifi%20almak%20istiyorum.';
+const socialIcons = [
+  {
+    label: 'GitHub',
+    href: 'https://github.com/emincanaktepe02-byte/Katalist',
+    svg: (
+      <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current text-slate-400" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+      </svg>
+    ),
+  },
+  {
+    label: 'LinkedIn',
+    href: '#',
+    svg: (
+      <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current text-slate-400" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+      </svg>
+    ),
+  },
+  {
+    label: 'X',
+    href: '#',
+    svg: (
+      <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current text-slate-400" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+      </svg>
+    ),
+  },
+];
+
+const WHATSAPP_URL =
+  'https://wa.me/905348852248?text=Merhaba%2C%20fiyat%20teklifi%20almak%20istiyorum.';
+
+const footerLinks = [
+  {
+    title: 'Sayfalar',
+    links: [
+      { label: 'Hakkımızda', href: '#about' },
+      { label: 'Hizmetler', href: '#services' },
+      { label: 'Projeler', href: '#projects' },
+      { label: 'Yorumlar', href: '#reviews' },
+      { label: 'İletişim', href: '#contact' },
+    ],
+  },
+  {
+    title: 'Hizmetler',
+    links: [
+      { label: 'Web Geliştirme', href: '#services' },
+      { label: 'UI/UX Tasarım', href: '#services' },
+      { label: 'Otomasyon & AI', href: '#services' },
+      { label: 'Mobil Uyumlu', href: '#services' },
+      { label: 'Backend & API', href: '#services' },
+    ],
+  },
+  {
+    title: 'İletişim',
+    links: [
+      { label: 'WhatsApp', href: WHATSAPP_URL, external: true },
+      { label: '0534 885 22 48', href: 'tel:+905348852248' },
+      { label: 'info@katalist.com.tr', href: 'mailto:info@katalist.com.tr' },
+    ],
+  },
+];
 
 export default function Footer() {
   return (
-    <footer className="relative border-t border-cyan-500/10 pt-20 pb-10 overflow-hidden">
-      <div className="absolute inset-0 grid-bg opacity-20" />
-
-      <div className="relative z-10 max-w-7xl mx-auto px-6">
-        {/* Top CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-20 pb-20 border-b border-cyan-500/10"
-        >
-          <div className="font-mono-tech text-xs text-cyan-400 tracking-[0.3em] mb-4">// HAZIR MISINIZ?</div>
-          <h2 className="font-orbitron text-3xl md:text-5xl font-black text-white mb-6">
-            PROJENİZİ{' '}
-            <span className="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">
-              BAŞLATALIM
-            </span>
-          </h2>
-          <p className="font-jakarta text-slate-400 text-lg mb-8 max-w-xl mx-auto">
-            Dijital dönüşümünüzün ilk adımını bugün atın.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-cyan-500 to-cyan-400 text-black font-orbitron font-bold text-sm tracking-widest transition-all duration-300 hover:scale-105 glow-cyan shadow-xl shadow-cyan-500/30"
-            >
-              <Zap className="w-4 h-4" />
-              FİYAT TEKLİFİ AL
-              <ArrowRight className="w-4 h-4" />
-            </a>
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 px-8 py-4 rounded-full border border-green-500/30 text-green-400 font-orbitron text-sm tracking-widest transition-all duration-300 hover:border-green-400 hover:bg-green-500/5"
-            >
-              <MessageCircle className="w-4 h-4" />
-              WHATSAPP&apos;TAN YAZ
-            </a>
-          </div>
-        </motion.div>
-
-        {/* Footer grid */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-16">
-          {/* Brand */}
-          <div className="md:col-span-2">
-            <div className="flex items-center gap-2.5 mb-4">
-              <div className="relative w-8 h-8">
-                <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-                  <polygon points="18,2 33,10 33,26 18,34 3,26 3,10" fill="none" stroke="url(#footer-hex)" strokeWidth="1.5" />
-                  <path d="M12 11 L12 25 M12 18 L20 11 M12 18 L20 25" stroke="url(#footer-k)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-                  <circle cx="18" cy="18" r="1.5" fill="#00d4ff" />
-                  <defs>
-                    <linearGradient id="footer-hex" x1="3" y1="2" x2="33" y2="34" gradientUnits="userSpaceOnUse">
-                      <stop stopColor="#00d4ff" /><stop offset="1" stopColor="#7c3aed" />
-                    </linearGradient>
-                    <linearGradient id="footer-k" x1="12" y1="11" x2="20" y2="25" gradientUnits="userSpaceOnUse">
-                      <stop stopColor="#00d4ff" /><stop offset="1" stopColor="#00ff88" />
-                    </linearGradient>
-                  </defs>
-                </svg>
-              </div>
-              <span className="font-orbitron text-lg font-bold tracking-[0.12em]">
-                <span className="text-white">KATA</span>
-                <span className="text-cyan-400">LIST</span>
-              </span>
-            </div>
-            <p className="font-jakarta text-slate-500 text-base leading-relaxed max-w-xs">
-              Yazılım mühendisi ekibimizle dijital kurumsal destek, otomasyon ve tasarım hizmetleri sunuyoruz.
+    <footer className="bg-slate-900 text-white">
+      {/* CTA Band */}
+      <div className="border-b border-slate-800">
+        <div className="max-w-7xl mx-auto px-6 py-14 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div>
+            <h3 className="text-2xl md:text-3xl font-extrabold mb-2">
+              Projenizi başlatalım
+            </h3>
+            <p className="text-slate-400 text-sm max-w-md">
+              Ücretsiz keşif görüşmesi için bize ulaşın.
+              24 saat içinde teklifinizi hazırlıyoruz.
             </p>
           </div>
+          <a
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-shrink-0 flex items-center gap-2 px-7 py-3.5 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm transition-all duration-200 hover:shadow-xl hover:shadow-indigo-900/40"
+          >
+            <MessageCircle className="w-4 h-4" />
+            Fiyat Teklifi Al
+            <ArrowUpRight className="w-4 h-4" />
+          </a>
+        </div>
+      </div>
 
-          {/* Links */}
-          <div>
-            <div className="font-mono-tech text-xs text-cyan-400 tracking-widest mb-4">// NAVİGASYON</div>
-            <ul className="space-y-3">
-              {[
-                { label: 'Ana Sayfa', href: '#hero' },
-                { label: 'Hakkımızda', href: '#about' },
-                { label: 'Hizmetler', href: '#services' },
-                { label: 'Projeler', href: '#projects' },
-                { label: 'Yorumlar', href: '#reviews' },
-                { label: 'İletişim', href: '#contact' },
-              ].map((link) => (
-                <li key={link.href}>
-                  <a href={link.href} className="font-jakarta text-slate-500 hover:text-cyan-400 transition-colors text-base">
-                    {link.label}
-                  </a>
-                </li>
+      {/* Main */}
+      <div className="max-w-7xl mx-auto px-6 pt-14 pb-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-14">
+          {/* Brand */}
+          <div className="lg:col-span-1">
+            <div className="mb-5">
+              <KatalistLogo dark />
+            </div>
+            <p className="text-slate-400 text-sm leading-relaxed mb-6">
+              Yazılım mühendisi ekibimizle kurumsal dijital çözümler sunuyoruz.
+              Otomasyon, tasarım ve satış sonrası destek.
+            </p>
+            <div className="flex items-center gap-3">
+              {socialIcons.map(({ label, href, svg }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="w-9 h-9 rounded-xl bg-slate-800 hover:bg-indigo-600 flex items-center justify-center transition-colors duration-200"
+                >
+                  {svg}
+                </a>
               ))}
-            </ul>
+            </div>
           </div>
 
-          {/* Contact */}
-          <div>
-            <div className="font-mono-tech text-xs text-purple-400 tracking-widest mb-4">// İLETİŞİM</div>
-            <ul className="space-y-3">
-              <li>
-                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="font-jakarta text-slate-500 hover:text-green-400 transition-colors text-base">
-                  WhatsApp: +90 534 885 22 48
-                </a>
-              </li>
-              <li>
-                <a href="tel:+905348852248" className="font-jakarta text-slate-500 hover:text-cyan-400 transition-colors text-base">
-                  Tel: 0534 885 22 48
-                </a>
-              </li>
-              <li>
-                <span className="font-mono-tech text-xs text-slate-600">Pazartesi - Cumartesi</span>
-                <br />
-                <span className="font-jakarta text-slate-500 text-base">09:00 - 18:00</span>
-              </li>
-            </ul>
-          </div>
+          {/* Link columns */}
+          {footerLinks.map((col) => (
+            <div key={col.title}>
+              <h4 className="font-mono-tech text-[11px] tracking-[0.2em] text-slate-500 uppercase mb-5">
+                {col.title}
+              </h4>
+              <ul className="flex flex-col gap-3">
+                {col.links.map((link) => (
+                  <li key={link.label}>
+                    <a
+                      href={link.href}
+                      target={'external' in link && link.external ? '_blank' : undefined}
+                      rel="noopener noreferrer"
+                      className="text-slate-400 hover:text-white text-sm transition-colors duration-200 flex items-center gap-1 group"
+                    >
+                      {link.label}
+                      {'external' in link && link.external && (
+                        <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      )}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
 
         {/* Bottom bar */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 border-t border-cyan-500/10">
-          <div className="font-mono-tech text-xs text-slate-600">
-            © {new Date().getFullYear()} KATALIST. TÜM HAKLARI SAKLIDIR.
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-            <span className="font-mono-tech text-xs text-slate-600">SİSTEM AKTİF</span>
-          </div>
+        <div className="pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-slate-500 text-xs">
+            © {new Date().getFullYear()} Katalist. Tüm hakları saklıdır.
+          </p>
+          <p className="font-mono-tech text-[10px] text-slate-600 tracking-widest">
+            // BUILT WITH NEXT.JS + TAILWIND
+          </p>
         </div>
       </div>
     </footer>
